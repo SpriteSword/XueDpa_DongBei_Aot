@@ -3,6 +3,7 @@ using XueDpa_DongBei_Aot.ViewModels;
 
 namespace XueDpa_DongBei_Aot.Service;
 
+
 public class ContentNvgtnService : IContentNvgtnService
 {
 	public void NavigateTo(string view, object? prmtr = null)

@@ -2,8 +2,8 @@ using CommunityToolkit.Mvvm.Messaging;
 using SQLite;
 using XueDpa_DongBei_Aot.Helper;
 using XueDpa_DongBei_Aot.Model;
-
 namespace XueDpa_DongBei_Aot.Service;
+
 
 public class FavoriteStorage(IPrfrncStorage prfrnc_storage) : IFavoriteStorage
 {

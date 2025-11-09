@@ -4,6 +4,7 @@ using XueDpa_DongBei_Aot.Model;
 
 namespace XueDpa_DongBei_Aot.Converter;
 
+
 public class PoetryToStringConverter : IValueConverter
 {
 	public object? Convert(object? value, Type targetType, object? parameter, CultureInfo culture) =>

@@ -4,8 +4,8 @@ using XueDpa_DongBei_Aot.Service;
 using XueDpa_DongBei_Aot.Service.Navigation;
 using XueDpa_DongBei_Aot.ViewModels;
 
-
 namespace XueDpa_DongBei_Aot;
+
 
 //++++ 张引说 ServiceLocator 是 view 层的，但我觉得这不是上帝般的东西吗，不是跳出3界之外吗？所有东西的依赖都要靠它来注册。
 [ServiceProvider]

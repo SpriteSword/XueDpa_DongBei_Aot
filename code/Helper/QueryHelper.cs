@@ -2,6 +2,7 @@ using System.Linq.Expressions;
 using XueDpa_DongBei_Aot.Model;
 namespace XueDpa_DongBei_Aot.Helper;
 
+
 static class QueryHelper
 {
 	//  万能查询语句

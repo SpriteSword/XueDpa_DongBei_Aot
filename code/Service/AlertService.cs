@@ -1,7 +1,7 @@
 using Avalonia.Threading;
 using Ursa.Controls;
-
 namespace XueDpa_DongBei_Aot.Service;
+
 
 public class AlertService : IAlertService
 {

@@ -4,6 +4,7 @@ using XueDpa_DongBei_Aot.Model;
 
 namespace XueDpa_DongBei_Aot.Views;
 
+
 public partial class FavoriteView : UserControl
 {
 	public FavoriteView()
