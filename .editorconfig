@@ -1,0 +1,9 @@
+[*.{cs,vb}]
+indent_style = tab
+
+# 小于 .net7 的版本会好用。new后面写了类型前面就不用了，因为老版本没有 new() 简化版
+# csharp_style_var_when_type_is_apparent = true
+
+# 单行函数用 "=>"
+csharp_style_expression_bodied_methods = false
+

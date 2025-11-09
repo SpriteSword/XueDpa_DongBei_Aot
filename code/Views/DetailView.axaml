@@ -1,0 +1,71 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rt="using:XueDpa_DongBei_Aot"
+             xmlns:vm="using:XueDpa_DongBei_Aot.ViewModels"
+
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+
+
+             x:Class="XueDpa_DongBei_Aot.Views.DetailView"
+             x:CompileBindings="True"
+             Loaded="OnLoaded"
+
+             DataContext="{CompiledBinding (rt:ServiceLocator).DetailViewModel, Source={StaticResource ServiceLocator}}"
+             x:DataType="vm:DetailViewModel">
+
+	<!-- ++++bug：1、点击收藏会页面闪烁一下，是朝代的 StackPanel 渲染速度问题？； -->
+	<!-- 2、刚点进来会根据是否被收藏来设置收藏按钮的状态，能看到按钮的过渡动画，能不能在内容还没显示时就瞬间设置好，用户看不到按钮动画？ -->
+
+	<!-- <Interaction.Behaviors> -->
+	<!-- 	<EventTriggerBehavior EventName="Loaded"> -->
+	<!-- 		<InvokeCommandAction Command="{Binding OnLoadedCmnd}" /> -->
+	<!-- 	</EventTriggerBehavior> -->
+	<!-- </Interaction.Behaviors> -->
+
+	<ScrollViewer>
+		<StackPanel Margin="8">
+			<!-- 诗词名 -->
+			<TextBlock FontSize="18"
+			           Margin="0,0,0,8"
+			           HorizontalAlignment="Center"
+			           FontWeight="Bold"
+			           Text="{Binding Poetry.Name}" />
+
+			<!-- 朝代 · 作者 -->
+			<StackPanel Margin="0,0,0,8"
+			            Orientation="Horizontal"
+			            HorizontalAlignment="Center"
+			            IsVisible="{Binding !IsLoading}">
+
+				<TextBlock FontSize="14"
+				           Text="{Binding Poetry.Dynasty}" />
+				<TextBlock FontSize="14"
+				           Text=" · " />
+				<TextBlock FontSize="14"
+				           Text="{Binding Poetry.Author}" />
+			</StackPanel>
+
+			<!-- 诗词正文 -->
+			<TextBlock FontSize="18"
+			           HorizontalAlignment="Center"
+			           Margin="0,0,0,8"
+			           Text="{Binding Poetry.Content}"
+			           TextWrapping="Wrap" />
+			<!-- TextWrapping 文本换行 -->
+
+			<!-- 收藏按钮 -->
+			<ToggleSwitch IsEnabled="True"
+			              OnContent="已收藏"
+			              OffContent="未收藏"
+			              HorizontalAlignment="Center"
+			              IsChecked="{Binding Favorite.IsFavorite}"
+			              Command="{Binding FavoriteSwitchCmnd}">
+
+			</ToggleSwitch>
+
+		</StackPanel>
+
+	</ScrollViewer>
+</UserControl>

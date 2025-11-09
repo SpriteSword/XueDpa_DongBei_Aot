@@ -1,0 +1,100 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:lc="using:XueDpa_DongBei_Aot.Converter"
+             xmlns:rt="using:XueDpa_DongBei_Aot"
+             xmlns:vm="using:XueDpa_DongBei_Aot.ViewModels"
+
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+
+             x:Class="XueDpa_DongBei_Aot.Views.TodayView"
+             x:CompileBindings="True"
+             Initialized="OnIntlzd"
+
+             DataContext="{CompiledBinding (rt:ServiceLocator).TodayViewModel, Source={StaticResource ServiceLocator}}"
+             x:DataType="vm:TodayViewModel">
+	
+	<UserControl.Resources>
+		<lc:ByteArrayToBitmapConverter x:Key="ByteArrayToBitmapConverter" />
+		<lc:NegativeConverter x:Key="NegativeConverter" />
+	</UserControl.Resources>
+
+	<!-- 通过默认的窗口事件来调用，窗口初始化已经完成了吧，这个已是第2个页面也会有 Initialized 信号吗？ -->
+	<!-- <Interaction.Behaviors> -->
+	<!-- 	<EventTriggerBehavior EventName="Initialized"> -->
+	<!-- 		~1~ Initialized  这个事件居然不能自动补全，垃圾！！！ @1@ -->
+	<!-- 		<InvokeCommandAction Command="{Binding OnIntlzdCmnd}" /> -->
+	<!-- 	</EventTriggerBehavior> -->
+	<!-- </Interaction.Behaviors> -->
+
+
+	<Grid Background="Black"
+	      RowDefinitions="*"
+	      ColumnDefinitions="*">
+		<!-- 2* =占三分之二 -->
+
+		<!-- 一个1行1列的网格放2个控件?? 会叠起来,上下层,有绘制先后?!-->
+		<Image Source="{Binding TodayImage.ImageBytes, Converter={StaticResource ByteArrayToBitmapConverter}}"
+		       Stretch="UniformToFill" />
+
+		<StackPanel Background="#66000000" VerticalAlignment="Bottom">
+
+			<StackPanel Margin="8" IsVisible="{Binding IsLoading}">
+				<ProgressBar Foreground="White"
+				             IsIndeterminate="True"
+				             Width="50"
+				             Height="50"
+				             Margin="0,0,0,8"
+				             Theme="{DynamicResource ProgressRing}"
+				             ShowProgressText="False" />
+				<Label Foreground="White"
+				       Content="正在载入"
+				       HorizontalAlignment="Center" />
+			</StackPanel>
+
+			<!-- 诗词栏 -->
+			<StackPanel Margin="8"
+			            IsVisible="{Binding IsLoading, Converter={StaticResource NegativeConverter}}">
+
+				<Label FontSize="24"
+				       Foreground="White"
+				       Margin="0 0 0 8"
+				       Content="{Binding TodayPoetry.Snippet}" />
+				<!-- TodayPoetry 是 TodayViewModel 的，为什么不能更清楚地写明路径，写了反而还不能识别？ -->
+
+				<StackPanel x:Name="DetailStackLayout">
+					<Label FontSize="18"
+					       Foreground="White"
+					       Margin="0 0 8 8"
+					       Content="{Binding TodayPoetry.Author}"
+					       VerticalAlignment="Center" />
+
+					<Label FontSize="18"
+					       Foreground="White"
+					       Margin="0 0 8 8"
+					       Content="{Binding TodayPoetry.Name}"
+					       VerticalAlignment="Center" />
+					<Button HorizontalAlignment="Left"
+					        Margin="0 0 0 8"
+					        Content="查看详情"
+					        VerticalAlignment="Center"
+					        Command="{Binding ShowDetailCmnd}" />
+
+				</StackPanel>
+			</StackPanel>
+
+			<!-- 版权栏，相同的颜色叠加2次变深色 -->
+			<StackPanel Background="#66000000">
+				<Label Foreground="White"
+				       Margin="8"
+				       FontSize="12"
+				       Content="{Binding TodayImage.Copyright}" />
+
+			</StackPanel>
+
+		</StackPanel>
+	</Grid>
+
+
+</UserControl>

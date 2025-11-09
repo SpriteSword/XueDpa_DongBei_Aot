@@ -1,0 +1,155 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rt="using:XueDpa_DongBei_Aot"
+             xmlns:vm="using:XueDpa_DongBei_Aot.ViewModels"
+
+             xmlns:lvm="using:XueDpa_DongBei_Aot.ViewModels"
+             xmlns:lc="using:XueDpa_DongBei_Aot.Converter"
+             xmlns:icon="https://github.com/projektanker/icons.avalonia"
+
+             mc:Ignorable="d" d:DesignWidth="600" d:DesignHeight="450"
+             x:Class="XueDpa_DongBei_Aot.Views.MainView"
+             x:CompileBindings="True"
+
+             DataContext="{CompiledBinding (rt:ServiceLocator).MainViewModel, Source={StaticResource ServiceLocator}}"
+             x:DataType="vm:MainViewModel">
+	<!--
+
+
+	++++为什么都是些网址啊？
+	xmlns 是命名空间的意思？xmlns:lvm是取了个别名？
+
+	xmlns:ia、xmlns:i 事件转命令
+-->
+
+	<!-- 有导航的，窗口下的最大的区域，不同于 MainWindow，MainWindow 是窗口 -->
+
+	<!-- 注册当前界面的资源，不是全局资源 -->
+	<UserControl.Resources>
+		<lc:Count2BoolConverter x:Key="Count2BoolConverter" />
+	</UserControl.Resources>
+
+
+	<SplitView DisplayMode="Overlay"
+	           IsPaneOpen="{Binding IsPaneOpen}">
+		<!-- 折叠区 -->
+		<SplitView.Pane>
+			<Grid RowDefinitions="50,*">
+
+				<Grid Grid.Row="0"
+				      ColumnDefinitions="50,*">
+
+					<!-- 关闭按钮 -->
+					<Button Grid.Column="0"
+					        Background="#3498db"
+					        VerticalAlignment="Stretch"
+					        HorizontalAlignment="Stretch"
+					        CornerRadius="0"
+					        Command="{Binding ClosePaneCmnd}">
+						<icon:Icon Foreground="White" Value="fa-x" />
+					</Button>
+
+					<!-- 软件标题 -->
+					<Grid Grid.Column="1">
+						<Label Foreground="SkyBlue"
+						       VerticalAlignment="Center"
+						       FontSize="20"
+						       Margin="10 0 0 0"
+						       Content="每日诗词" />
+					</Grid>
+				</Grid>
+
+				<ListBox Grid.Row="1"
+				         ItemsSource="{Binding  Source={x:Static lvm:MenuItem.MenuItems}}"
+				         SelectedItem="{Binding SelectedMenuItem, Mode=TwoWay}"
+				         Tapped="OnMenuTapped"
+				         >
+					<!--
+					ItemsSource：使用 OneWay，因为只是把数据显示出来，UI不会修改集合
+					SelectedItem：使用 TwoWay，因为选择变化时需要更新ViewModel中的属性
+
+					绑定有3种写法：
+					成员+Source；
+					DataContext{成员+Source}，后边的所有绑定都绑定在 Source 找到的成员；
+					只有 Source，直接绑到 Source 上。 -->
+
+					<!-- ++++居然可以遍历并显示所有菜单名？？
+					ListBox 能点击，					-->
+					<ListBox.ItemTemplate>
+						<DataTemplate x:DataType="lvm:MenuItem">
+							<Label Content="{CompiledBinding Name, Mode=OneWay}"
+							       VerticalAlignment="Center"
+							       FontSize="20"
+							       Margin="50 5 0 5" />
+						</DataTemplate>
+					</ListBox.ItemTemplate>
+				</ListBox>
+			</Grid>
+		</SplitView.Pane>
+
+		<!-- 内容区 -->
+		<SplitView.Content>
+			<Grid RowDefinitions="50,*">
+
+				<!-- 第1行导航区，3个列 -->
+				<Grid Grid.Row="0"
+				      ColumnDefinitions="Auto,Auto,*">
+					<!-- 汉堡菜单按钮 -->
+					<Button Grid.Column="0"
+					        Width="50"
+					        HorizontalAlignment="Stretch"
+					        VerticalAlignment="Stretch"
+					        CornerRadius="0"
+					        Command="{Binding OpenPaneCmnd}">
+						<icon:Icon Foreground="#3498db" Value="fa-bars" />
+
+						<!-- <TextBlock Foreground="DeepSkyBlue" -->
+						<!--            VerticalAlignment="Center" -->
+						<!--            HorizontalAlignment="Center" -->
+						<!--            FontSize="14" -->
+						<!--            > -->
+						<!-- 	☰ -->
+						<!-- </TextBlock> -->
+					</Button>
+
+					<!-- 返回按钮 -->
+					<Button Grid.Column="1"
+					        Width="50"
+					        VerticalAlignment="Stretch"
+					        HorizontalAlignment="Stretch"
+					        CornerRadius="0 0 0 0"
+					        IsVisible="{Binding ContentStack.Count, Converter={StaticResource Count2BoolConverter}, ConverterParameter=1}"
+					        Command="{Binding GoBackCmnd}">
+						<icon:Icon Foreground="#3498db" Value="fa-arrow-left" />
+					</Button>
+
+					<!-- 软件名字 -->
+					<Grid Grid.Column="2"
+					      Background="#3498db"
+					      HorizontalAlignment="Stretch"
+					      VerticalAlignment="Stretch">
+						<Label Foreground="White"
+						       VerticalAlignment="Center"
+						       FontSize="20"
+						       Margin="10 0 0 0"
+						       Content="{Binding Title}">
+						</Label>
+					</Grid>
+				</Grid>
+
+				<!-- 第二行内容区 -->
+				<!-- ContentControl 本身看不见，内容由 组件（？） 决定，只要一改 Content 显示就变，即实现导航 -->
+				<ContentControl Grid.Row="1" Content="{Binding Content }">
+					<!-- 有空格会如何？"Content " -->
+
+
+				</ContentControl>
+
+			</Grid>
+		</SplitView.Content>
+	</SplitView>
+
+
+</UserControl>

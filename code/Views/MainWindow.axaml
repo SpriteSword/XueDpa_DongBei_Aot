@@ -1,0 +1,146 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:rt="using:XueDpa_DongBei_Aot"
+        xmlns:vm="using:XueDpa_DongBei_Aot.ViewModels"
+
+        xmlns:local="clr-namespace:XueDpa_DongBei_Aot"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:views="clr-namespace:XueDpa_DongBei_Aot.Views"
+        xmlns:ais="using:AvaloniaInfiniteScrolling"
+
+
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="XueDpa_DongBei_Aot"
+
+        DataContext="{CompiledBinding (rt:ServiceLocator).MainWindowViewModel, Source={StaticResource ServiceLocator}}"
+        x:DataType="vm:MainWindowViewModel"
+
+        x:Class="XueDpa_DongBei_Aot.Views.MainWindowView"
+        x:CompileBindings="True"
+        Initialized="OnIntlzd"
+        Content="{Binding Content}">
+	<!-- 
+	本身是 x:Class 是 View，它的 DataContext 是个 ViewModel。
+	
+	DataContext="{Binding (rt:ServiceLocator).MainWindowViewModel, Source={StaticResource ServiceLocator}}"> 
+是不是 CompiledBinding 都行。编译期确定类型要加 (rt:ServiceLocator) 才行！！
+
+编译期绑定必须要这个：x:DataType="vm:MainWindowViewModel"，并且 x:DataType 类型要与 DataContext 绑定的类型一致！
+
+	Initialized="xxx"，本身事件直接就能绑，理想应是不用 Interaction.Behaviors，现实这么简单的功能都不做完善点！
+-->
+
+	<!-- xmlns:i="using:Avalonia.Xaml.Interactivity" -->
+	<!-- xmlns:ia="using:Avalonia.Xaml.Interactions.Core" -->
+
+	<!-- 0、 -->
+	<!-- <TextBlock Text="{Binding Greeting}" HorizontalAlignment="Center" VerticalAlignment="Center" /> -->
+
+
+	<!-- 
+	DataContext="{Binding ResultViewModel, Source={StaticResource ServiceLocator}}"
+	写了 DataContext 后面的绑定就不用写后边的 Source 了！
+
+	这是所有控件的 Content 默认都绑定到 MainWindowViewModel.Content 吗？价廉：
+        Content="{Binding Content}"
+	后面就不能写 <Button> 这些了。哦。
+
+-->
+
+
+	<!-- 1、通过默认的窗口事件来调用。这东西不能 AOT！-->
+	<!-- <Interaction.Behaviors> -->
+	<!-- 	<EventTriggerBehavior EventName="Initialized"> -->
+	<!-- 		~1~ Initialized  这个事件居然不能自动补全，垃圾！！！ @1@ -->
+	<!-- 		<InvokeCommandAction Command="{Binding OnIntlzdCmnd}"/> -->
+	<!-- 	</EventTriggerBehavior> -->
+	<!-- </Interaction.Behaviors> -->
+
+	<!-- <ItemsControl ItemsSource="{Binding PoetryCollection}"> -->
+	<!-- 	<ItemsControl.ItemTemplate> -->
+	<!-- 		<DataTemplate> -->
+	<!-- 			<TextBlock Text="{Binding Name}" /> -->
+	<!-- 		</DataTemplate> -->
+	<!-- 	</ItemsControl.ItemTemplate> -->
+	<!-- </ItemsControl> -->
+
+	<!-- 2、无限滚动。绑定到，不需要指定更详细的路径？ -->
+	<!-- AvaloniaInfiniteScrollControl 在这里用到！！ -->
+	<!-- <ais:AvaloniaInfiniteScrollControl ItemsSource="{Binding PoetryCollection}"> -->
+	<!-- 	<ais:AvaloniaInfiniteScrollControl.ItemTemplate> -->
+	<!-- 		<DataTemplate> -->
+	<!-- 			<TextBlock Text="{Binding Name}"></TextBlock> -->
+	<!-- 		</DataTemplate> -->
+	<!-- 	</ais:AvaloniaInfiniteScrollControl.ItemTemplate> -->
+	<!-- </ais:AvaloniaInfiniteScrollControl> -->
+
+	<!-- 3、实验弹窗、今日诗词 -->
+	<!-- 绑 Initialized -> OnIntlzdCmnd -->
+	<!-- …… -->
+
+	<!-- <Grid Background="Black" -->
+	<!--       > -->
+	<!-- 	<Grid.RowDefinitions> -->
+	<!-- 		~1~ 2* = 占三分之二 @1@ -->
+	<!-- 		<RowDefinition Height="*"/>	 -->
+	<!-- 	</Grid.RowDefinitions> -->
+	<!-- 	 -->
+	<!-- 	<Grid.ColumnDefinitions> -->
+	<!-- 		<ColumnDefinition Width="*"/> -->
+	<!-- 	</Grid.ColumnDefinitions> -->
+	<!-- -->
+	<!-- 	 -->
+	<!-- 	~1~ 为什么正常运行获取不到结果，debug运行就可以？难道网络延迟？ @1@ -->
+	<!-- 	<StackPanel Background="#66000000" VerticalAlignment="Bottom"> -->
+	<!-- 		<StackPanel Margin="8"> -->
+	<!-- 			<Label FontSize="24" -->
+	<!-- 			       Foreground="White" -->
+	<!-- 			       Margin="0 0 0 8" -->
+	<!-- 			       Content="{Binding TodayPoetry.Snippet}"/> -->
+	<!-- 			~1~ TodayPoetry 是 TodayViewModel 的，为什么不能更清楚地写明路径，写了反而还不能识别？ @1@ -->
+	<!-- 			 -->
+	<!-- 			<StackPanel x:Name="DetailStackLayout"> -->
+	<!-- 				<Label FontSize="18" -->
+	<!-- 				       Foreground="White" -->
+	<!-- 				       Margin="0 0 8 8" -->
+	<!-- 				       Content="{Binding TodayPoetry.Author}" -->
+	<!-- 				       VerticalAlignment="Center"/> -->
+	<!-- 				 -->
+	<!-- 				<Label FontSize="18" -->
+	<!-- 				       Foreground="White" -->
+	<!-- 				       Margin="0 0 8 8" -->
+	<!-- 				       Content="{Binding TodayPoetry.Name}" -->
+	<!-- 				       VerticalAlignment="Center"/> -->
+	<!-- 				<Button HorizontalAlignment="Left" -->
+	<!-- 				        Margin="0 0 0 8" -->
+	<!-- 				        Content="查看详情" -->
+	<!-- 				        VerticalAlignment="Center"/> -->
+	<!-- 				        ~1~ Command="{Binding ShowDetailCmnd}"  ++++++是不是视频少录了，就没有实现 ShowDetailCmnd 啊？  @1@ -->
+	<!-- 				 -->
+	<!-- 			</StackPanel> -->
+	<!-- 		</StackPanel> -->
+	<!-- 		 -->
+	<!-- 		<StackPanel Background="#66000000"> -->
+	<!-- 			<Label Foreground="White" -->
+	<!-- 			       Margin="8" -->
+	<!-- 			       FontSize="12" -->
+	<!-- 			       Content="佛山电台，版权所有，未经许可，不得转播"/> -->
+	<!-- 			~1~ Content="{Binding TodayIamge.Copyright}" @1@ -->
+	<!-- 			 -->
+	<!-- 		</StackPanel> -->
+	<!-- 	</StackPanel> -->
+	<!-- 	 -->
+	<!-- </Grid> -->
+
+
+	<!-- 开始正题。Content 在开头绑定了。 -->
+	<!-- <i:Interaction.Behaviors> -->
+	<!-- 	<ia:EventTriggerBehavior EventName="Initialized"> -->
+	<!-- 		<ia:InvokeCommandAction Command="{Binding OnIntlzdCmnd}"/> -->
+	<!-- 	</ia:EventTriggerBehavior> -->
+	<!-- </i:Interaction.Behaviors> -->
+
+
+</Window>

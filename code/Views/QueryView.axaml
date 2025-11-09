@@ -1,0 +1,77 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:vm="using:XueDpa_DongBei_Aot.ViewModels"
+             xmlns:rt="using:XueDpa_DongBei_Aot"
+
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+
+             x:Class="XueDpa_DongBei_Aot.Views.QueryView"
+             x:CompileBindings="True"
+
+             DataContext="{CompiledBinding (rt:ServiceLocator).QueryViewModel, Source={StaticResource ServiceLocator}}"
+             x:DataType="vm:QueryViewModel"
+             >
+	<!-- 为什么 StaticResource 不能绑其他类？？是因为在 App.axaml 只写了这个？ -->
+
+	<Grid RowDefinitions="*,Auto">
+
+		<!-- 循环列表。在 ItemsSource 里关联了那个 VM 集合，由 ViewLocator 变成 View 显示在此控件里面。 -->
+		<ItemsControl Grid.Row="0"
+		              ItemsSource="{Binding FilterViewModels}"
+		              Margin="12">
+			<ItemsControl.ItemTemplate>
+				<DataTemplate>
+					<!-- 3 行3列 -->
+					<Grid Margin="0,0,0,12"
+					      ColumnDefinitions="2,Auto,*"
+					      RowDefinitions="Auto,Auto,*">
+
+						<!-- 边框。RowSpan 跨2行！！？？ -->
+						<Border Grid.Row="0"
+						        Grid.Column="0"
+						        Grid.RowSpan="2"
+						        Background="SkyBlue" />
+
+						<!-- 第一行 -->
+
+						<ComboBox Grid.Row="0"
+						          Grid.Column="1"
+						          Margin="8,0,4,4"
+						          ItemsSource="{x:Static vm:FilterType.FilterTypes}"
+						          SelectedItem="{Binding Type}"
+						          DisplayMemberBinding="{Binding Name}" />
+
+						<TextBox Grid.Row="0"
+						         Grid.Column="2"
+						         Margin="4,0,0,4"
+						         Text="{Binding Content}" />
+
+						<!-- 第二行 -->
+						<!-- ColumnSpan 跨了2列 -->
+						<StackPanel Grid.Row="1"
+						            Grid.Column="1"
+						            Grid.ColumnSpan="2"
+						            Orientation="Horizontal">
+							<Button Margin="8,4,4,0"
+							        Content="Add"
+							        Command="{Binding AddCmnd}" />
+							<Button Margin="8,4,4,0"
+							        Content="删除"
+							        Command="{Binding RemoveCmnd}" />
+						</StackPanel>
+					</Grid>
+
+				</DataTemplate>
+			</ItemsControl.ItemTemplate>
+		</ItemsControl>
+
+		<Button Grid.Row="1"
+		        Margin="12"
+		        Content="查询"
+		        Command="{Binding QueryCmnd}" />
+	</Grid>
+
+
+</UserControl>

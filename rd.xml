@@ -1,0 +1,18 @@
+<Directives xmlns="http://schemas.microsoft.com/netfx/2013/01/metadata">
+	<Application>
+		<!-- 保留Avalonia数据验证相关类型 -->
+		<!-- <Assembly Name="Avalonia.Data">
+			<Type Name="Avalonia.Data.Core.Plugins.BindingPlugins" Dynamic="Required All" />
+			<Type Name="Avalonia.Data.Core.Plugins.DataValidators" Dynamic="Required All" />
+		</Assembly> -->
+
+		<!-- 保留SQLite所有类型 -->
+		<Assembly Name="SQLite-net" Dynamic="Required All"/>
+
+
+		<!-- 保留所有程序集的所有方法（更保守的方案） -->
+		<!-- <Assembly Name="*">
+			<Type Name="*" Dynamic="Required All" />
+		</Assembly> -->
+	</Application>
+</Directives>

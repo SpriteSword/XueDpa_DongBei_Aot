@@ -1,0 +1,64 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:rt="using:XueDpa_DongBei_Aot"
+             xmlns:ais="using:AvaloniaInfiniteScrolling"
+             xmlns:lc="using:XueDpa_DongBei_Aot.Converter"
+
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+
+             DataContext="{Binding (rt:ServiceLocator).ResultViewModel, Source={StaticResource ServiceLocator}}"
+
+             x:Class="XueDpa_DongBei_Aot.Views.ResultView"
+             x:Name="TheResultView">
+	<!--
+	x:Name="TheResultView" 对这个 axaml 生成的实例起名
+
+	 -->
+
+	<UserControl.Resources>
+		<lc:PoetryToStringConverter x:Key="PoetryToString" />
+	</UserControl.Resources>
+
+	<Grid RowDefinitions="*,Auto">
+		<!-- AvaloniaInfiniteScrollControl 是 ItemsControl，不能选中 -->
+		<ais:AvaloniaInfiniteScrollControl Grid.Row="0"
+		                                   ItemsSource="{Binding PoetryCollection}"
+		                                   Margin="12,12,12,0">
+			<ais:AvaloniaInfiniteScrollControl.ItemTemplate>
+				<DataTemplate>
+					<StackPanel Margin="0,0,0,12"
+					            Background="Transparent"
+					            Tapped="OnPoetryTapped"
+					            Tag="{Binding }">
+
+						<!-- 响应点击。Interaction.Behaviors 附加属性给 StackPanel。还能跨对象绑定 cmnd -->
+						<!-- <i:Interaction.Behaviors> -->
+						<!-- 	<ia:EventTriggerBehavior EventName="Tapped"> -->
+						<!-- 		~1~ command 可以传参。Binding 空缺就是传当前对象？ 绑到了view上，而不是 ViewModel，再获取这个实例的 DataContext 属性得到 viewmodel，+++++ 直接绑绑不到 VM 上吗？？@1@ -->
+						<!-- 		<ia:InvokeCommandAction Command="{Binding DataContext.ShowPoetryCmnd, ElementName=TheResultView}" -->
+						<!-- 		                        CommandParameter="{Binding }" /> -->
+						<!-- 	</ia:EventTriggerBehavior> -->
+						<!-- </i:Interaction.Behaviors> -->
+
+						<TextBlock Text="{Binding Name}"
+						           FontWeight="Bold" />
+
+						<!-- <TextBlock Text="{Binding Snippet}" /> -->
+						<TextBlock Text="{Binding Converter={StaticResource PoetryToString}}" />
+
+
+					</StackPanel>
+				</DataTemplate>
+			</ais:AvaloniaInfiniteScrollControl.ItemTemplate>
+		</ais:AvaloniaInfiniteScrollControl>
+
+		<TextBlock Grid.Row="1"
+		           Margin="12"
+		           HorizontalAlignment="Center"
+		           Text="{Binding Status}">
+
+		</TextBlock>
+	</Grid>
+</UserControl>

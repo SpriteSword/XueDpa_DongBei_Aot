@@ -1,0 +1,113 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+	<PropertyGroup>
+		<OutputType>WinExe</OutputType>
+		<TargetFramework>net8.0</TargetFramework>
+		<AssemblyName>XueDpa_DongBei_Aot</AssemblyName>
+		<RootNamespace>XueDpa_DongBei_Aot</RootNamespace>
+		<ImplicitUsings>disable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<!-- 内置 COM 互操作支持。在 avalonia 12.0 前必须 false. -->
+		<BuiltInComInteropSupport>true</BuiltInComInteropSupport>
+
+		<!-- 应用程序清单 -->
+		<ApplicationManifest>app.manifest</ApplicationManifest>
+
+		<!--	Avalonia 默认使用编译绑定，aot 应该是 true 吧？ -->
+		<AvaloniaUseCompiledBindingsByDefault>true</AvaloniaUseCompiledBindingsByDefault>
+
+
+		<!-- 不变的全球化。要 false，semi 库要用！ -->
+		<InvariantGlobalization>false</InvariantGlobalization>
+
+		<!-- 防测试框架乱入入口 -->
+		<StartupObject>XueDpa_DongBei_Aot.Program</StartupObject>
+
+		<!-- 集成 Coverlet 代码覆盖率工具 -->
+		<!-- <CollectCoverage>false</CollectCoverage> -->
+
+		<!-- 关键：禁用测试框架的自动行为 -->
+		<GenerateProgramFile>false</GenerateProgramFile>
+		<GenerateDependencyFile>false</GenerateDependencyFile>
+		<!-- 这个有影响！ -->
+		<!-- <CopyLocalLockFileAssemblies>false</CopyLocalLockFileAssemblies> -->
+
+		<!-- 禁用隐式引用 -->
+		<!-- <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences> -->
+		<DisableImplicitNuGetFallbackFolder>true</DisableImplicitNuGetFallbackFolder>
+
+		<RestorePackagesWithLockFile>true</RestorePackagesWithLockFile>
+		<!-- 可选：锁定模式 -->
+		<!-- <RestoreLockedMode>true</RestoreLockedMode> -->
+
+		<!-- 禁用（反）序列化反射 -->
+		<JsonSerializerIsReflectionEnabledByDefault>false</JsonSerializerIsReflectionEnabledByDefault>
+
+	</PropertyGroup>
+
+	<PropertyGroup Condition="'$(Configuration)' == 'Release'">
+		<!-- 测试不能 AOT！！ -->
+		<PublishAot>true</PublishAot>
+		<TrimMode>partial</TrimMode>
+	</PropertyGroup>
+
+
+	<ItemGroup Condition="'$(Configuration)' == 'Release'">
+		<RdXmlFile Include="rd.xml"/>
+
+		<Compile Remove="**\*.Test.cs"/>
+		<Compile Remove="code\Test\**\*.cs*"/>
+	</ItemGroup>
+
+	<ItemGroup Condition="'$(Configuration)' != 'Release'">
+		<!-- 单元测试 -->
+		<PackageReference Include="coverlet.collector" Version="6.0.0"/>
+		<PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.8.0"/>
+		<PackageReference Include="Moq" Version="4.20.72"/>
+		<PackageReference Include="xunit" Version="2.5.3"/>
+		<PackageReference Include="xunit.runner.visualstudio" Version="2.5.3"/>
+
+		<Content Include="xunit.runner.json" CopyToOutputDirectory="PreserveNewest"/>
+	</ItemGroup>
+
+	<ItemGroup>
+		<!-- 资源文件 -->
+		<!-- <Folder Include="Models\" /> -->
+		<AvaloniaResource Include="Assets\**"/>
+
+		<None Remove="res/poetry.sqlite3"/>
+		<EmbeddedResource Include="res/poetry.sqlite3" LogicalName="poetry.sqlite3"/>
+		<None Remove="res/today-img.bin" />
+		<EmbeddedResource Include="res/today-img.bin" LogicalName="today-img.bin"/>
+
+
+		<!-- 前端库 -->
+		<PackageReference Include="Avalonia" Version="11.3.8"/>
+		<PackageReference Include="Avalonia.Desktop" Version="11.3.8"/>
+		<PackageReference Include="Avalonia.Themes.Fluent" Version="11.3.8"/>
+		<PackageReference Include="Avalonia.Fonts.Inter" Version="11.3.8"/>
+		<!--下面的条件用于在发布配置中从构建输出中移除 Avalonia.Diagnostics 包。Diagnostics 诊断。-->
+		<PackageReference Include="Avalonia.Diagnostics" Version="11.3.0">
+			<IncludeAssets Condition="'$(Configuration)' != 'Debug'">None</IncludeAssets>
+			<PrivateAssets Condition="'$(Configuration)' != 'Debug'">All</PrivateAssets>
+		</PackageReference>
+
+		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0"/>
+		<!--		<PackageReference Include="Avalonia.Xaml.Behaviors" Version="11.3.0.6" />-->
+		<PackageReference Include="AvaloniaInfiniteScrolling.Control" Version="1.0.0"/>
+		<PackageReference Include="Irihi.Ursa" Version="1.13.0"/>
+		<PackageReference Include="Irihi.Ursa.Themes.Semi" Version="1.13.0"/>
+		<PackageReference Include="Semi.Avalonia" Version="11.3.7"/>
+		<PackageReference Include="Projektanker.Icons.Avalonia.FontAwesome" Version="9.6.2"/>
+
+
+		<!-- IoC -->
+		<PackageReference Include="Jab" Version="0.12.0"/>
+
+
+		<!-- 基础库 -->
+		<PackageReference Include="AvaloniaInfiniteScrolling.Collection" Version="1.0.1"/>
+		<PackageReference Include="sqlite-net-pcl" Version="1.9.172"/>
+
+	</ItemGroup>
+
+</Project>

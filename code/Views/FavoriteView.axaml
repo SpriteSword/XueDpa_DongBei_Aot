@@ -1,0 +1,53 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             
+             xmlns:lc="using:XueDpa_DongBei_Aot.Converter"
+             xmlns:rt="using:XueDpa_DongBei_Aot"
+             xmlns:vm="using:XueDpa_DongBei_Aot.ViewModels"
+             
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             
+             x:Name="TheFavoriteView"
+             x:Class="XueDpa_DongBei_Aot.Views.FavoriteView"
+             x:CompileBindings="True"
+             
+             Initialized="OnIntlzd"
+
+             DataContext="{CompiledBinding (rt:ServiceLocator).FavoriteViewModel, Source={StaticResource ServiceLocator}}"
+             x:DataType="vm:FavoriteViewModel"
+             >
+
+	<UserControl.Resources>
+		<lc:PoetryToStringConverter x:Key="PoetryToString" />
+	</UserControl.Resources>
+	
+
+	<ItemsControl ItemsSource="{Binding PoetryFavoriteClctn}"
+	              Margin="12">
+		<ItemsControl.ItemTemplate>
+			<DataTemplate>
+				<StackPanel Margin="0,0,0,12"
+				            Background="Transparent"
+				            Tapped="OnPoetryTapped"
+				            Tag="{Binding Poetry}">
+					<!-- 靠 Tag 传参，服了，谁设计的玩意？ -->
+
+					<!-- <Interaction.Behaviors> -->
+					<!-- 	<EventTriggerBehavior EventName="Tapped"> -->
+					<!-- 		<InvokeCommandAction Command="{Binding DataContext.ShowPoetryCmnd, ElementName=TheFavoriteView}" -->
+					<!-- 		                        CommandParameter="{Binding Poetry}" /> -->
+					<!-- 	</EventTriggerBehavior> -->
+					<!-- </Interaction.Behaviors> -->
+
+					<TextBlock Text="{Binding Poetry.Name}"
+					           FontWeight="Bold" />
+					<TextBlock Text="{Binding Poetry, Converter={StaticResource PoetryToString}}" />
+
+				</StackPanel>
+			</DataTemplate>
+		</ItemsControl.ItemTemplate>
+	</ItemsControl>
+
+</UserControl>

@@ -1,0 +1,44 @@
+<Application xmlns="https://github.com/avaloniaui"
+	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" x:Class="XueDpa_DongBei_Aot.App"
+	xmlns:local="using:XueDpa_DongBei_Aot" RequestedThemeVariant="Default" x:CompileBindings="True"
+	xmlns:semi="https://irihi.tech/semi"
+	xmlns:u-semi="https://irihi.tech/ursa/themes/semi">
+
+
+
+	<!-- "Default" ThemeVariant follows system theme variant. "Dark" or "Light" are other available options. -->
+
+	<!-- Use x:CompileBindings="True" in your XAML files
+    在 XAML 文件中使用
+    避免在运行时加载动态 XAML
+    尽可能使用静态资源引用而不是动态资源 -->
+
+	<Application.DataTemplates>
+		<local:ViewLocator />
+	</Application.DataTemplates>
+
+
+	<!-- 依赖注入的注册。无顺序，写在 <Application> 里面哪都行 -->
+	<!-- local 在上面定义，就是命名空间 -->
+	<Application.Resources>
+		<ResourceDictionary>
+			<local:ServiceLocator x:Key="ServiceLocator" />
+			
+			<local:ViewLocator x:Key="ViewLocator" />
+		</ResourceDictionary>
+	</Application.Resources>
+
+	<Application.Styles>
+		<semi:SemiTheme Locale="zh-CN" />
+		<u-semi:SemiTheme Locale="zh-CN" />
+		
+
+		<!-- 无限滚动还要搞这么多？ -->
+		<StyleInclude Source="avares://AvaloniaInfiniteScrolling.Control/AvaloniaInfiniteScrollControlStyle.axaml" />
+	</Application.Styles>
+
+	<!-- <Application.Styles> -->
+	<!-- 	<FluentTheme /> -->
+	<!-- </Application.Styles> -->
+
+</Application>
