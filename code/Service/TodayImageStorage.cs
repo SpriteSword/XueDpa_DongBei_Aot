@@ -16,12 +16,10 @@ public class TodayImageStorage(IPrfrncStorage prfrnc_storage) : ITodayImageStora
 	public static readonly string CopyrightLinkKey = nameof(TodayImageStorage) + "." + nameof(TodayImage.CopyrightLink);
 
 	//  dflt default
-	public const string _full_start_date_dflt_ = "201901010700";
-	public static readonly DateTime _expires_at_dflt_ = new(2019, 1, 2, 7, 0, 0);
-	public const string _copyright_dflt_ = "Salt field province vietnam work (© Quangpraha/Pixabay)";
-
-	public const string _copyright_link_dflt_ =
-		"https://pixabay.com/photos/salt-field-province-vietnam-work-3344508/";
+	public const string _full_start_date_default_ = "201901010700";
+	public static readonly DateTime _expires_at_default_ = new(2019, 1, 2, 7, 0, 0);
+	public const string _copyright_default_ = "Salt field province vietnam work (© Quangpraha/Pixabay)";
+	public const string _copyright_link_default_ = "https://pixabay.com/photos/salt-field-province-vietnam-work-3344508/";
 
 	public const string _filename_ = "today-img.bin"; //  内置图片
 	public static readonly string _today_image_path_ = PathHelper.GetLocalFilePath(_filename_);
@@ -31,10 +29,10 @@ public class TodayImageStorage(IPrfrncStorage prfrnc_storage) : ITodayImageStora
 	{
 		TodayImage today_image = new()
 		{
-			FullStartDate = _prfrnc_storage_.Get(FullStartDateKey, _full_start_date_dflt_),
-			ExpiresAt = _prfrnc_storage_.Get(ExpiresAtKey, _expires_at_dflt_),
-			Copyright = _prfrnc_storage_.Get(CopyrightKey, _copyright_dflt_),
-			CopyrightLink = _prfrnc_storage_.Get(CopyrightLinkKey, _copyright_link_dflt_),
+			FullStartDate = _prfrnc_storage_.Get(FullStartDateKey, _full_start_date_default_),
+			ExpiresAt = _prfrnc_storage_.Get(ExpiresAtKey, _expires_at_default_),
+			Copyright = _prfrnc_storage_.Get(CopyrightKey, _copyright_default_),
+			CopyrightLink = _prfrnc_storage_.Get(CopyrightLinkKey, _copyright_link_default_),
 		};
 
 		//  如果不存在,就把内置的图片复制过去

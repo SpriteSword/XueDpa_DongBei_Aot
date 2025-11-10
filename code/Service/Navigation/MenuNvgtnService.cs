@@ -1,4 +1,3 @@
-using System;
 using XueDpa_DongBei_Aot.Service.Navigation;
 using XueDpa_DongBei_Aot.ViewModels;
 
