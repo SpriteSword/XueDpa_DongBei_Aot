@@ -16,7 +16,7 @@ public class PoetryStorageTest : IDisposable
 
 	public void Dispose()
 	{
-		PoetryStorageHelper.RemoveDbFile(); //+++++  万一文件不存在会崩吗？不会
+		PoetryStorageHelper.RemoveDbFile(); //  文件不存在也不会崩的
 	}
 
 
@@ -90,7 +90,7 @@ public class PoetryStorageTest2 : IDisposable
 
 	public void Dispose()
 	{
-		PoetryStorageHelper.RemoveDbFile(); //+++++  万一文件不存在会崩吗？不会
+		PoetryStorageHelper.RemoveDbFile();
 	}
 
 

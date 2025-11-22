@@ -16,7 +16,7 @@ static class PathHelper
 			local_folder = Path.Combine(
 				Environment.GetFolderPath(
 					Environment.SpecialFolder.LocalApplicationData),
-					AppDomain.CurrentDomain.FriendlyName		//+++++  AppDomain 比程序集的概念要大吧？原来 nameof(XueDpa_DongBei_Aot)
+					AppDomain.CurrentDomain.FriendlyName		// ???: AppDomain 比程序集的概念要大吧？原来 nameof(XueDpa_DongBei_Aot)
 				);
 
 			if (!Directory.Exists(local_folder))
@@ -26,7 +26,6 @@ static class PathHelper
 
 			return local_folder;
 		}
-		set { }
 	}
 
 	public static string GetLocalFilePath(string file_name)

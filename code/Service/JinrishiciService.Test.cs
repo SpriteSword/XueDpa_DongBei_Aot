@@ -122,7 +122,7 @@ public class JinrishiciServiceTest
 	void Test_Deserialize()
 	{
 		string json = "{\"status\":\"abcd\",\"data\":\"hello\"}";
-		// var jinrishici_token = JsonSerializer.Deserialize<JinrishiciToken>(json); //+++++  好可恨！
+		// var jinrishici_token = JsonSerializer.Deserialize<JinrishiciToken>(json);
 		JinrishiciToken? jinrishici_token = JsonSerializer.Deserialize(json, SourceGnrtnContextJinrishici.Default.JinrishiciToken);
 
 		Assert.NotNull(jinrishici_token);

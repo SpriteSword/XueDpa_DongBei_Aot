@@ -17,7 +17,7 @@ public class FavoriteViewModel : ViewModelBase, IRecipient<FavoriteStorageUpdate
 	private bool is_loading;
 	bool is_loaded;
 
-	//++++直接用Poetry不好？
+	// ???: 直接用Poetry不好？
 	public ObservableCollection<PoetryFavorite> PoetryFavoriteClctn { get; set; } = [];
 
 
@@ -39,7 +39,7 @@ public class FavoriteViewModel : ViewModelBase, IRecipient<FavoriteStorageUpdate
 		_favorite_storage_.Updated += OnFavoriteStorageUpdated;
 		//  相当于 Updated 引用了 FavoriteViewModel，但没事，因为本来 VM 就是单例的。-= 有可能中间抛异常而没-=。所以事件适合 处理方长时间存在，发起方短时间存在
 
-		WeakReferenceMessenger.Default.Register(this);     //++++  Default 又是单例？
+		WeakReferenceMessenger.Default.Register(this);     // ???: Default 又是单例？
 
 		_poetry_storage_ = poetry_storage;
 		_content_nvgtn_service_ = content_nvgtn_service;
@@ -66,7 +66,7 @@ public class FavoriteViewModel : ViewModelBase, IRecipient<FavoriteStorageUpdate
 
 		/*
 		int[] ints = [1, 2, 3, 4];
-		double[] doubles = ints.Select(p => p * 1.0).ToArray();		//+++++++都是这么转的吗，不耗性能吗？
+		double[] doubles = ints.Select(p => p * 1.0).ToArray();		// ???: 都是这么转的吗，不耗性能吗？
 
 		//  只能拿到任务。还有异步 linq
 		var fs_tasks = f_list.Select(async p => await _poetry_storage_.GetPoetryAsync(p.PoetryId)).ToArray();
@@ -82,7 +82,7 @@ public class FavoriteViewModel : ViewModelBase, IRecipient<FavoriteStorageUpdate
 		// 	})
 		// ))).ToList();
 
-		//++++  按照上面的思路应该是这种写法，为什么会有上面的写法？？？
+		// ???: 按照上面的思路应该是这种写法，为什么会有上面的写法？？？
 		PoetryFavorite[] p_favorites = await Task.WhenAll(f_list.Select(async f => new PoetryFavorite
 		{
 			Poetry = await _poetry_storage_.GetPoetryAsync(f.PoetryId),
@@ -98,7 +98,7 @@ public class FavoriteViewModel : ViewModelBase, IRecipient<FavoriteStorageUpdate
 	}
 
 
-	//++++++ on 这个字不是加在最前面的？事件的返回值一定要 void，不能 Task！
+	// ???: on 这个字不是加在最前面的？事件的返回值一定要 void，不能 Task！
 	private async void OnFavoriteStorageUpdated(object? sender, Favorite favorite)
 	{
 		//  先删掉集合里的同一首诗。不等于同一个Poetry对象！！Remove() 传 null 也是安全的
@@ -119,7 +119,7 @@ public class FavoriteViewModel : ViewModelBase, IRecipient<FavoriteStorageUpdate
 		};
 
 		// var index = PoetryFavoriteClctn.IndexOf(
-		// 	PoetryFavoriteClctn.FirstOrDefault(p => p.Favorite.Timestamp < favorite.Timestamp));		//++++  会改原变集合内容吗？排序吗？
+		// 	PoetryFavoriteClctn.FirstOrDefault(p => p.Favorite.Timestamp < favorite.Timestamp));		// ???: 会改原变集合内容吗？排序吗？
 		//
 		// if (index == -1)
 		// {

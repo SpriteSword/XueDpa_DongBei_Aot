@@ -1,4 +1,3 @@
-using System.Diagnostics;
 using System.Linq.Expressions;
 using SQLite;
 using XueDpa_DongBei_Aot.Helper;
@@ -36,7 +35,7 @@ public class PoetryStorage : IPoetryStorage
 		await using Stream? db_asset_stream = typeof(PoetryStorage).Assembly.GetManifestResourceStream(_db_name_)
 			?? throw new FileNotFoundException("Embedded poetry database not found.", _db_name_);
 
-		//++++  是因为资源内嵌了，所以要流对流复制，不能文件到文件复制？
+		// ???: 是因为资源内嵌了，所以要流对流复制，不能文件到文件复制？
 		await db_asset_stream.CopyToAsync(db_file_stream); //XueDpa_DongBei_Aot.poetry.sqlite3
 	}
 
@@ -53,9 +52,9 @@ public class PoetryStorage : IPoetryStorage
 	public async Task<IList<Poetry>>
 		GetPoetriesAsync(Expression<Func<Poetry, bool>> where, int skip, int take) //  性能差。async
 	{
-		await Task.Delay(1000);//+++++++
+		// await Task.Delay(1000);
 
-		return await Connection.Table<Poetry>().Where(where).Skip(skip).Take(take).ToListAsync();
+		return await Connection.Table<Poetry>().Where(where).Skip(skip).Take(take).ToListAsync();		// ???: 张引说会翻译成sql再执行，不知真假
 	}
 
 	//  关闭表。没有在接口中写这个，

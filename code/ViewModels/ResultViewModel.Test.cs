@@ -29,7 +29,7 @@ public class ResultViewModelTest : IDisposable
 		List<string?> status_list = [];
 		result_view_model.PropertyChanged += (sender, args) =>
 		{
-			if (args.PropertyName == nameof(result_view_model.Status)) //+++++这是防止其他人的调用给传到这来了？要看看是不是 Status？
+			if (args.PropertyName == nameof(result_view_model.Status)) // ???: 这是防止其他人的调用给传到这来了？要看看是不是 Status？
 			{
 				status_list.Add(result_view_model.Status);
 			}
@@ -48,10 +48,10 @@ public class ResultViewModelTest : IDisposable
 
 		bool poetry_collection_changed = false;
 		result_view_model.PoetryCollection.CollectionChanged +=
-			(sender, args) => poetry_collection_changed = true; //+++++ 看不见
+			(sender, args) => poetry_collection_changed = true; // FFF: 看不见
 
 		await result_view_model.PoetryCollection
-			.LoadMoreAsync(); //  +++++++ 直接用 dotnet test 这句会失败？？ SQLite.SQLiteException : no such table: poetry？
+			.LoadMoreAsync(); // FFF: 直接用 dotnet test 这句会失败？？ SQLite.SQLiteException : no such table: poetry？
 
 
 		Assert.True(poetry_collection_changed);

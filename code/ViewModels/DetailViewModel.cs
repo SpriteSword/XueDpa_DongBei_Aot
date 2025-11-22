@@ -73,5 +73,5 @@ public class DetailViewModel : ViewModelBase
 		IsLoading = false;
 	}
 
-	//++++++没有取消收藏从数据库移除？？好像也没必要，就存几个int数而已也不会占空间
+	// ???: 没有取消收藏从数据库移除？？好像也没必要，就存几个int数而已也不会占空间
 }

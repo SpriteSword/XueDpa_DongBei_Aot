@@ -6,7 +6,7 @@ using XueDpa_DongBei_Aot.Service.Navigation;
 
 namespace XueDpa_DongBei_Aot.ViewModels;
 
-//+++++++++为什么汉堡菜单点1次后，后面就点不了了？？？准确说是点击非汉堡菜单区域导致菜单关闭后就不能再点击。
+// FFF: 为什么汉堡菜单点1次后，后面就点不了了？？？准确说是点击非汉堡菜单区域导致菜单关闭后就不能再点击。
 /// <summary>
 /// 包含导航栏的整个视图的 ViewModel。 </summary>
 public class MainViewModel : ViewModelBase
@@ -81,7 +81,7 @@ public class MainViewModel : ViewModelBase
 		Content = ContentStack[0];
 	}
 
-	//+++++++设置打开汉堡菜单时默认的选中的选项?????。
+	//++++  设置打开汉堡菜单时默认的选中的选项?????。
 	/// <summary>
 	/// 设置菜单和 内容页面。 </summary>
 	/// <param name="view"></param> <param name="content_"></param>
@@ -108,7 +108,7 @@ public class MainViewModel : ViewModelBase
 	public void OnMenuTapped()
 	{
 		if (SelectedMenuItem is null) { return; }
-		_menu_nvgtn_service_.NavigateTo(SelectedMenuItem.View);     //++++++++是不是在这里解决如果随便乱点导致菜单隐藏，然后再也点不出菜单的bug？
+		_menu_nvgtn_service_.NavigateTo(SelectedMenuItem.View);     // ???: 是不是在这里解决如果随便乱点导致菜单隐藏，然后再也点不出菜单的bug？
 	}
 }
 
@@ -119,7 +119,7 @@ public class MenuItem
 	public required string View { get; init; }
 
 
-	//+++++这个明明是当常量用却不能写死为常量，语言层面的锅！
+	// NOTE: 这个明明是当常量用却不能写死为常量，语言层面的锅！
 	public static IEnumerable<MenuItem> MenuItems { get; } =
 	[
 		TodayView, QueryView, FavoriteView

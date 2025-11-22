@@ -13,7 +13,7 @@ public class ResultViewModel : ViewModelBase
 {
 	public const int _page_size_ = 20;
 
-	public const string _loading_ = "正在载入"; //++++++++应该用枚举吧？
+	public const string _loading_ = "正在载入"; //++++  应该用枚举吧？
 	public const string _no_result_ = "没有满足条件的结果";
 	public const string _no_more_result_ = "没有更多结果";
 
@@ -54,10 +54,10 @@ public class ResultViewModel : ViewModelBase
 		// poetry_storage.InitAsync().RunSynchronously();
 
 		// 1.
-		// OnIntlzdCmnd = new AsyncRelayCommand(OnIntlzdAsync); //+++++  为什么不能直接 new 写到变量上，说不能推断 OnIntlzedAsync 的类型？函数都静态的啊？Task不能编译时推断？
+		// OnIntlzdCmnd = new AsyncRelayCommand(OnIntlzdAsync); // ???: 为什么不能直接 new 写到变量上，说不能推断 OnIntlzedAsync 的类型？函数都静态的啊？Task不能编译时推断？
 
 
-		//+++++  确实分批加载了，但停不下来，一直把所有数据都加载了，难道不是我滚动到底部才加载吗？
+		// XXX: 确实分批加载了，但停不下来，一直把所有数据都加载了，难道不是我滚动到底部才加载吗？
 		PoetryCollection = new AvaloniaInfiniteScrollCollection<Poetry>()
 		{
 			OnCanLoadMore = () => can_load_more,
@@ -78,7 +78,7 @@ public class ResultViewModel : ViewModelBase
 				QueryHelper._where_dflt_,
 				PoetryCollection.Count, _page_size_);
 
-			Status = String.Empty; //++++++多余的？有用吗？
+			Status = String.Empty; // ???: 多余的？有用吗？
 
 			if (poetries.Count < _page_size_)
 			{

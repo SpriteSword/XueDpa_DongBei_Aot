@@ -65,9 +65,9 @@ public partial class ViewLocator : IDataTemplate
 
 	public static Control Build(ViewModelBase vmb)
 	{
-		return vmb switch //++++++++++ axaml 也要写这么多类型，真的很烦！
+		return vmb switch //++++ axaml 也要写这么多类型，真的很烦！
 		{
-			//++++  每次都 new 是不是不太对？原本写的 Activator.CreateInstance 也相当于 new，每次进入呕同一个页面难道都会实例化一个新的 View？
+			// ???: 每次都 new 是不是不太对？原本写的 Activator.CreateInstance 也相当于 new，每次进入呕同一个页面难道都会实例化一个新的 View？
 			//  看需求吧
 			MainWindowViewModel => MainWindowView,
 			IntlztnViewModel => IntlztnView,
@@ -76,7 +76,7 @@ public partial class ViewLocator : IDataTemplate
 			DetailViewModel => DetailView,
 			FavoriteViewModel => FavoriteView,
 			QueryViewModel => QueryView,
-			TodayDetailViewModel => TodayDetailView,     //  试一下。++++++单例也会被调用析构函数？
+			TodayDetailViewModel => TodayDetailView,     //  试一下。???: 单例也会被调用析构函数？
 			TodayViewModel => TodayView,
 			ResultViewModel => ResultView,
 

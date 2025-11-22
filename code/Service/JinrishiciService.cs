@@ -19,7 +19,7 @@ public class JinrishiciService(
 	private const string _server_ = "今日诗词服务器";
 	readonly IAlertService _alert_service_ = alert_service;
 	readonly IPoetryStorage _poetry_storage_ = poetry_storage;
-	readonly IPrfrncStorage _prfrnc_storage_ = prfrnc_storage; //  键值存储。将诗词的Token存到本地文件。+++++存Token有什么用？？？？？
+	readonly IPrfrncStorage _prfrnc_storage_ = prfrnc_storage; //  键值存储。将诗词的Token存到本地文件。???: 存Token有什么用？？？？？
 	public static readonly string _jinrishici_token_key_ = $"{nameof(JinrishiciService)}.Token";
 
 	private readonly string domain_name = domain_name;
@@ -40,7 +40,7 @@ public class JinrishiciService(
 
 		using HttpClient http_client = new();
 		HttpResponseMessage response;
-		//+++++  为什么不能 try(HttpResponseMessage response)？你 if(xx is Mouse m) 中，m 的作用域都能 if 外面！！！
+		// ???:  为什么不能 try(HttpResponseMessage response)？你 if(xx is Mouse m) 中，m 的作用域都能 if 外面！！！
 		try
 		{
 			response = await http_client.GetAsync($"https://{domain_name}/token");
@@ -61,7 +61,7 @@ public class JinrishiciService(
 		//  反序列化
 		// var jinrishici_token = JsonSerializer.Deserialize<JinrishiciToken>(
 		// 	json,
-		// 	new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); //  大小写不敏感。+++++其实真有必要拘泥于风格规范吗？难道不是一致性更重要？
+		// 	new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); //  大小写不敏感。???: 其实真有必要拘泥于风格规范吗？难道不是一致性更重要？
 		try
 		{
 			JinrishiciToken jinrishici_token = JsonSerializer.Deserialize(json, SourceGnrtnContextJinrishici.Default.JinrishiciToken)
@@ -150,7 +150,7 @@ public class JinrishiciService(
 
 	/// <summary>
 	/// 在本地数据库随机获取诗词。 </summary>
-	public async Task<TodayPoetry> GetRandomPoetryAsync()//++++++++++++似乎有问题！！测试不通过
+	public async Task<TodayPoetry> GetRandomPoetryAsync()// FFF: 似乎有问题！！测试不通过
 	{
 		var poetries = await _poetry_storage_.GetPoetriesAsync(
 			QueryHelper._where_dflt_,
@@ -172,7 +172,7 @@ public class JinrishiciService(
 ///
 ///
 ///
-public class JinrishiciToken//++++++什么垃圾？居然一定要 getset 才行？？不能直接解析进变量？？
+public class JinrishiciToken// ???: 什么垃圾？居然一定要 getset 才行？？不能直接解析进变量？？
 {
 	[JsonPropertyName("status")] public required string Status { get; set; }
 	[JsonPropertyName("data")] public required string Data { get; set; }

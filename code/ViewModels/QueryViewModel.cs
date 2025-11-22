@@ -85,12 +85,12 @@ public class QueryViewModel : ViewModelBase
 }
 
 //  不能继承自 ViewModelBase，因为 ViewLocator 会试图给你转成 view。
-//++++++ Filter 不是过滤器的意思吗，怎么好像不太对？？
+// ???: Filter 不是过滤器的意思吗，怎么好像不太对？？
 /// <summary>
 /// 在可变动列表显示的每个项对应的viewmodel。 </summary>
 public class FilterViewModel : ObservableObject
 {
-	readonly QueryViewModel _query_view_model_; //+++++=这样做也太不雅了，不应该用消息吗，由上级实例化下级并连接信号
+	readonly QueryViewModel _query_view_model_; // ???: 这样做也太不雅了，不应该用消息吗，由上级实例化下级并连接信号
 
 	string? content;
 	private FilterType type = FilterType._name_filter_;
@@ -131,7 +131,7 @@ public class FilterViewModel : ObservableObject
 	}
 }
 
-//+++++难道只能这样？因为不能公开构造函数，所以也不能有公共全局类，所以 C# 的所有单例都是要这样分散在一个个类中？？？
+// ???: 难道只能这样？因为不能公开构造函数，所以也不能有公共全局类，所以 C# 的所有单例都是要这样分散在一个个类中？？？
 public class FilterType
 {
 	//  为了能 全局唯一 且 不增不减、只读

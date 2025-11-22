@@ -16,7 +16,7 @@ public partial class TodayView : UserControl
 	}
 
 
-	public void OnIntlzd(object? sender, EventArgs eventArgs)		//++++++这个事件会不会造成 无法GC？
+	public void OnIntlzd(object? sender, EventArgs eventArgs)		// ???: 这个事件会不会造成 无法GC？
 	{
 		ServiceLocator.TodayViewModel.OnIntlzd();
 	}

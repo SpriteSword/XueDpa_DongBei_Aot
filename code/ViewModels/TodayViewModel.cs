@@ -56,7 +56,7 @@ public class TodayViewModel : ViewModelBase
 		_image_service_ = today_image_service;
 		_content_nvgtn_service_ = content_nvgtn_service;
 
-		_alert_service_ = alert_service; //+++++  弹窗实验
+		_alert_service_ = alert_service; // NOTE: 弹窗实验
 
 
 		// OnIntlzdCmnd = new RelayCommand(OnIntlzd);
@@ -72,7 +72,7 @@ public class TodayViewModel : ViewModelBase
 
 
 		//  多线程同时开始，诗词与图片不干扰。弹窗要在 UI 线程，之前弹不出来。
-		//+++++  用协程会如何??????
+		// ???: 用协程会如何??????
 		_ = Task.Run(async () =>
 		{
 			IsLoading = true;
@@ -90,9 +90,9 @@ public class TodayViewModel : ViewModelBase
 
 			TodayImageServiceCheckUpdateResult update_result = await _image_service_.CheckUpdateAsync();
 
-			if (update_result.HasUpdate) //+++++  为什么都是用程序自带的图，有时 HasUpdate 为 true,有时为 false？每次都图片都成功下载了在本地
+			if (update_result.HasUpdate) // ???: 为什么都是用程序自带的图，有时 HasUpdate 为 true,有时为 false？每次都图片都成功下载了在本地
 			{
-				TodayImage = update_result.TodayImage; //++++  为什么更新了不替换旧的图？？？烦，另一个线程的打不了断点。为什么结果有时
+				TodayImage = update_result.TodayImage; // ???: 为什么更新了不替换旧的图？？？烦，另一个线程的打不了断点。为什么结果有时
 			}
 		});
 	}

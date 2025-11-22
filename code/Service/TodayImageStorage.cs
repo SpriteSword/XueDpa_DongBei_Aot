@@ -86,7 +86,7 @@ public class TodayImageStorage(IPrfrncStorage prfrnc_storage) : ITodayImageStora
 		var m = new MemoryStream(image.ImageBytes);
 		await m.CopyToAsync(image_file_stream);
 		*/
-		// await image_file_stream.WriteAsync(image.ImageBytes, 0, image.ImageBytes.Length);		//+++++ 这个被弃用了？
+		// await image_file_stream.WriteAsync(image.ImageBytes, 0, image.ImageBytes.Length);		//  这个被弃用了？
 		await image_file_stream.WriteAsync(image.ImageBytes.AsMemory(0, image.ImageBytes.Length));
 	}
 }
