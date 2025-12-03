@@ -34,6 +34,7 @@ public class PoetryStorage : IPoetryStorage
 		await using FileStream db_file_stream = new(_poetry_db_path_, FileMode.OpenOrCreate);
 		await using Stream? db_asset_stream = typeof(PoetryStorage).Assembly.GetManifestResourceStream(_db_name_)
 			?? throw new FileNotFoundException("Embedded poetry database not found.", _db_name_);
+		// ???: Assembly 的资源应该程序启动时就已经在内存了吧，不需要用异步吧？大资源的情况又如何？
 
 		// ???: 是因为资源内嵌了，所以要流对流复制，不能文件到文件复制？
 		await db_asset_stream.CopyToAsync(db_file_stream); //XueDpa_DongBei_Aot.poetry.sqlite3
@@ -60,7 +61,7 @@ public class PoetryStorage : IPoetryStorage
 	//  关闭表。没有在接口中写这个，
 	public async Task CloseAsync()
 	{
-		if (connection != null) { await connection.CloseAsync(); }     //  异步函数居然不能用 .? 符？
+		if (connection != null) { await connection.CloseAsync(); }     // ???: 异步函数居然不能用 .? 符？
 	}
 
 

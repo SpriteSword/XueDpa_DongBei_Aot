@@ -57,7 +57,7 @@ public class ResultViewModel : ViewModelBase
 		// OnIntlzdCmnd = new AsyncRelayCommand(OnIntlzdAsync); // ???: 为什么不能直接 new 写到变量上，说不能推断 OnIntlzedAsync 的类型？函数都静态的啊？Task不能编译时推断？
 
 
-		// XXX: 确实分批加载了，但停不下来，一直把所有数据都加载了，难道不是我滚动到底部才加载吗？
+		// FFF!!: 确实分批加载了，但停不下来，一直把所有数据都加载了，难道不是我滚动到底部才加载吗？
 		PoetryCollection = new AvaloniaInfiniteScrollCollection<Poetry>()
 		{
 			OnCanLoadMore = () => can_load_more,

@@ -6,7 +6,7 @@ using XueDpa_DongBei_Aot.Service.Navigation;
 
 namespace XueDpa_DongBei_Aot.ViewModels;
 
-// FFF: 为什么汉堡菜单点1次后，后面就点不了了？？？准确说是点击非汉堡菜单区域导致菜单关闭后就不能再点击。
+// FFF!!: 为什么汉堡菜单点1次后，后面就点不了了？？？准确说是点击非汉堡菜单区域导致菜单关闭后就不能再点击。
 /// <summary>
 /// 包含导航栏的整个视图的 ViewModel。 </summary>
 public class MainViewModel : ViewModelBase
@@ -66,7 +66,7 @@ public class MainViewModel : ViewModelBase
 	/// 将 内容页面 压栈。 </summary>
 	public void PushContent(ViewModelBase content_)
 	{
-		ContentStack.Insert(0, Content = content_); //+++++为什么不放最后？
+		ContentStack.Insert(0, Content = content_); // XXX: 为什么不放最后？
 	}
 
 	public void GoBack()

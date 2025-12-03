@@ -51,7 +51,7 @@ public class ResultViewModelTest : IDisposable
 			(sender, args) => poetry_collection_changed = true; // FFF: 看不见
 
 		await result_view_model.PoetryCollection
-			.LoadMoreAsync(); // FFF: 直接用 dotnet test 这句会失败？？ SQLite.SQLiteException : no such table: poetry？
+			.LoadMoreAsync(); // FFF!: 直接用 dotnet test 这句会失败？？ SQLite.SQLiteException : no such table: poetry？
 
 
 		Assert.True(poetry_collection_changed);

@@ -12,7 +12,7 @@ public class Poetry
 	[SQLite.Column("dynasty")] public string Dynasty { get; set; } = String.Empty;
 	[SQLite.Column("content")] public string Content { get; set; } = String.Empty;
 
-	[SQLite.Ignore]     //  不是数据库里的还需要写特性吗？难道不是默认不是么？
+	[SQLite.Ignore]     // ???: 不是数据库里的还需要写特性吗？难道不是默认忽略么？
 	public string Snippet =>
 		snippet ??= Content.Split('。')[0].Replace("\n", " ");
 }

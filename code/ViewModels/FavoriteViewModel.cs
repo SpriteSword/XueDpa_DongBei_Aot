@@ -128,7 +128,7 @@ public class FavoriteViewModel : ViewModelBase, IRecipient<FavoriteStorageUpdate
 
 		// PoetryFavoriteClctn.Insert(index, pf);
 
-		PoetryFavoriteClctn.Insert(0, pf);		//++++++加在最后
+		PoetryFavoriteClctn.Insert(0, pf);		// XXX: 加在最后
 	}
 
 	//  后面又讲用消息
