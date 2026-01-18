@@ -1,10 +1,12 @@
 # 简述
-Avalonia 学习项目（[课程链接](https://www.bilibili.com/video/BV12rHrekEZs?spm_id_from=333.788.videopod.sections&vd_source=a13951d1d0a20d95b33876b57ca0bcde)），尝试 AOT 发布。
+Avalonia 学习项目，尝试 AOT 发布。
 
 # 特点
 - 使用 Jab 库进行单例模式、依赖注入；
 - 因为 AOT 用不了 Avalonia.Xaml.Behaviors 库，事件只好直接绑定；
 - 用 JsonSerializerContext 源生成的方式反序列化。
+
+（[学习](https://www.bilibili.com/video/BV12rHrekEZs?spm_id_from=333.788.videopod.sections&vd_source=a13951d1d0a20d95b33876b57ca0bcde)）
 
 ## 离经叛道
 - 测试放在同一个项目，模仿一下 Rust；
